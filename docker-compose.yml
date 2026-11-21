@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database Service
+  postgres:
+    image: postgres:15-alpine
+    container_name: student_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: student_performance_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. FastAPI Inference Microservice
+  fastapi:
+    build: .
+    container_name: student_fastapi
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: student_performance_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - postgres
+
+  # 3. MLflow Experiment Tracking & Registry
+  mlflow:
+    image: python:3.12-slim
+    container_name: student_mlflow
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+      - ./mlflow.db:/mlflow.db
+    command: >
+      sh -c "pip install mlflow && mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow.db --default-artifact-root /mlruns"
+
+volumes:
+  postgres_data:

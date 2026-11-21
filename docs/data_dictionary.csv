@@ -1,0 +1,47 @@
+table_name,column_name,data_type,nullable,source_column,description,transformation_derivation,validation_rule
+students,student_id,VARCHAR(10),No (PK),Generated,Unique Student Identifier,Formatted as STU0001,Non-empty string unique
+students,school,VARCHAR(5),No,school,Student school abbreviation,Direct ingestion,IN ('GP' 'MS')
+students,sex,VARCHAR(1),No,sex,Student sex,Direct ingestion,IN ('F' 'M')
+students,age,INT,No,age,Student age in years,Cast to Integer,BETWEEN 10 AND 30
+students,address,VARCHAR(1),No,address,Urban or Rural address,Direct ingestion,IN ('U' 'R')
+students,famsize,VARCHAR(5),No,famsize,Family size category,Direct ingestion,IN ('LE3' 'GT3')
+students,pstatus,VARCHAR(1),No,Pstatus,Parent cohabitation status,Direct ingestion,IN ('T' 'A')
+students,medu,INT,No,Medu,Mother education level,Cast to Integer,BETWEEN 0 AND 4
+students,fedu,INT,No,Fedu,Father education level,Cast to Integer,BETWEEN 0 AND 4
+students,mjob,VARCHAR(30),No,Mjob,Mother occupation,Lowercase & clean,Domain check
+students,fjob,VARCHAR(30),No,Fjob,Father occupation,Lowercase & clean,Domain check
+students,reason,VARCHAR(30),No,reason,School selection reason,Lowercase & clean,Domain check
+students,guardian,VARCHAR(30),No,guardian,Primary guardian,Lowercase & clean,IN ('mother' 'father' 'other')
+students,traveltime,INT,No,traveltime,Home to school travel time,Cast to Integer,BETWEEN 1 AND 4
+academic_records,student_id,VARCHAR(10),No (PK/FK),student_id,Student Identifier,Foreign key to students,Must exist in students
+academic_records,subject,VARCHAR(30),No,Synthetic,Subject evaluated,Set to 'Mathematics',Non-empty string
+academic_records,studytime,INT,No,studytime,Weekly study hours tier,Cast to Integer,BETWEEN 1 AND 4
+academic_records,failures,INT,No,failures,Past class failures,Cast to Integer,BETWEEN 0 AND 4
+academic_records,schoolsup,VARCHAR(5),No,schoolsup,Extra educational support,Direct ingestion,IN ('yes' 'no')
+academic_records,famsup,VARCHAR(5),No,famsup,Family educational support,Direct ingestion,IN ('yes' 'no')
+academic_records,paid,VARCHAR(5),No,paid,Extra paid classes,Direct ingestion,IN ('yes' 'no')
+academic_records,activities,VARCHAR(5),No,activities,Extra-curricular activities,Direct ingestion,IN ('yes' 'no')
+academic_records,nursery,VARCHAR(5),No,nursery,Attended nursery school,Direct ingestion,IN ('yes' 'no')
+academic_records,higher,VARCHAR(5),No,higher,Wants higher education,Direct ingestion,IN ('yes' 'no')
+academic_records,internet,VARCHAR(5),No,internet,Home internet access,Direct ingestion,IN ('yes' 'no')
+academic_records,romantic,VARCHAR(5),No,romantic,In romantic relationship,Direct ingestion,IN ('yes' 'no')
+academic_records,g1,INT,No,G1,1st period grade,Numeric validation,BETWEEN 0 AND 20
+academic_records,g2,INT,No,G2,2nd period grade,Numeric validation,BETWEEN 0 AND 20
+academic_records,g3,INT,No,G3,Final course grade,Numeric validation,BETWEEN 0 AND 20
+attendance_lifestyle,student_id,VARCHAR(10),No (PK/FK),student_id,Student Identifier,Foreign key to students,Must exist in students
+attendance_lifestyle,absences,INT,No,absences,Total school absences,Cast to Integer,absences >= 0
+attendance_lifestyle,famrel,INT,No,famrel,Family relationship quality,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,freetime,INT,No,freetime,Free time after school,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,goout,INT,No,goout,Going out with friends,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,dalc,INT,No,Dalc,Workday alcohol consumption,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,walc,INT,No,Walc,Weekend alcohol consumption,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,health,INT,No,health,Current health status,Cast to Integer,BETWEEN 1 AND 5
+attendance_lifestyle,estimated_attendance_pct,NUMERIC(5.2),No,Derived,Attendance % rate,(1 - absences/93) * 100,BETWEEN 0.0 AND 100.0
+analytics_student_performance,internal_marks_avg,NUMERIC(5.2),No,Derived,Average of G1 and G2,(G1 + G2) / 2.0,BETWEEN 0.0 AND 20.0
+analytics_student_performance,overall_academic_avg,NUMERIC(5.2),No,Derived,Average across all periods,(G1 + G2 + G3) / 3.0,BETWEEN 0.0 AND 20.0
+analytics_student_performance,term1_to_term2_trend,NUMERIC(5.2),No,Derived,Trajectory from G1 to G2,G2 - G1,Numeric range
+analytics_student_performance,performance_category,VARCHAR(30),No,Derived,Performance Tier,Categorized on 0-20 scale,Domain category
+analytics_student_performance,pass_status,VARCHAR(10),No,Derived,Passing threshold status,G3 >= 10 ? Pass : Fail,IN ('Pass' 'Fail')
+analytics_student_performance,dropout_risk_score,NUMERIC(5.2),No,Derived,Composite 0-100 risk score,Weighted combination,BETWEEN 0.0 AND 100.0
+analytics_student_performance,dropout_risk_level,VARCHAR(20),No,Derived,High / Med / Low Risk tier,Score thresholds (>=50 >=30),High Medium Low
+analytics_student_performance,requires_intervention,BOOLEAN,No,Derived,Priority Flag for Mentors,High Risk OR Failed,True / False

@@ -1,0 +1,10 @@
+{
+    "dataset_name": "UCI Student Performance Dataset (Mathematics)",
+    "source": "https://archive.ics.uci.edu/ml/machine-learning-databases/00320/student.zip",
+    "extraction_date": "2026-11-17T09:08:26.270121",
+    "status": "SUCCESS",
+    "raw_file": "data\\raw\\student-mat.csv",
+    "row_count": 395,
+    "column_count": 33,
+    "error_message": ""
+}

@@ -1,0 +1,8 @@
+{
+    "total_records_evaluated": 395,
+    "valid_records_passed": 395,
+    "rejected_records_count": 0,
+    "cleaned_output_path": "data\\cleaned\\student_cleaned.csv",
+    "rejected_output_path": "data\\rejected\\rejected_records.csv",
+    "validation_pass_rate_pct": 100.0
+}

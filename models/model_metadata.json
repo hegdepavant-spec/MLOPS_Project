@@ -1,0 +1,47 @@
+{
+    "model_name": "LogisticRegression_Baseline",
+    "mlflow_experiment": "student_dropout_risk_prediction",
+    "mlflow_run_id": "26bed83c07694fd0a865726760821c9f",
+    "registered_model_name": "student_dropout_risk_model",
+    "timestamp": "2026-11-16T21:53:04.504920",
+    "features_count": 35,
+    "target_definition": "failure_risk (G3 < 10)",
+    "train_samples": 275,
+    "val_samples": 60,
+    "test_samples": 60,
+    "benchmark_summary": [
+        {
+            "name": "LogisticRegression_Baseline",
+            "run_id": "26bed83c07694fd0a865726760821c9f",
+            "val_f1": 0.9523809523809523,
+            "val_recall": 1.0,
+            "val_precision": 0.9090909090909091,
+            "val_roc_auc": 0.9974999999999999,
+            "test_f1": 0.8421052631578947,
+            "test_recall": 0.8,
+            "test_roc_auc": 0.9762500000000001
+        },
+        {
+            "name": "RandomForest_Classifier",
+            "run_id": "5ce90fa2902e4919bfc02c71d3890cec",
+            "val_f1": 0.926829268292683,
+            "val_recall": 0.95,
+            "val_precision": 0.9047619047619048,
+            "val_roc_auc": 0.98875,
+            "test_f1": 0.85,
+            "test_recall": 0.85,
+            "test_roc_auc": 0.97125
+        },
+        {
+            "name": "XGBoost_Classifier",
+            "run_id": "e4a500bba37240f99eb7b1aaa8765187",
+            "val_f1": 0.9523809523809523,
+            "val_recall": 1.0,
+            "val_precision": 0.9090909090909091,
+            "val_roc_auc": 0.995,
+            "test_f1": 0.8421052631578947,
+            "test_recall": 0.8,
+            "test_roc_auc": 0.9650000000000001
+        }
+    ]
+}

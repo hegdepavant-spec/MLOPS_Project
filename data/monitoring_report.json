@@ -1,0 +1,74 @@
+{
+    "timestamp": "2026-11-16T21:55:47.671263",
+    "total_production_inferences": 25,
+    "api_latency_ms": {
+        "mean": 33.62,
+        "p95": 118.47,
+        "sla_met": true
+    },
+    "class_distribution": {
+        "baseline_failure_rate_pct": 32.73,
+        "production_failure_rate_pct": 60.0,
+        "absolute_shift_pct": 27.27
+    },
+    "feature_drift_analysis": {
+        "g1": {
+            "ks_statistic": 0.2861,
+            "p_value": 0.1601,
+            "drift_detected": false,
+            "baseline_mean": 10.87,
+            "production_mean": 10.8
+        },
+        "g2": {
+            "ks_statistic": 0.36,
+            "p_value": 0.0374,
+            "drift_detected": true,
+            "baseline_mean": 10.76,
+            "production_mean": 10.53
+        },
+        "internal_marks_avg": {
+            "ks_statistic": 0.3042,
+            "p_value": 0.1157,
+            "drift_detected": false,
+            "baseline_mean": 10.82,
+            "production_mean": 10.67
+        },
+        "absences": {
+            "ks_statistic": 0.7479,
+            "p_value": 0.0,
+            "drift_detected": true,
+            "baseline_mean": 5.73,
+            "production_mean": 23.73
+        },
+        "studytime": {
+            "ks_statistic": 0.3345,
+            "p_value": 0.0642,
+            "drift_detected": false,
+            "baseline_mean": 2.03,
+            "production_mean": 1.73
+        },
+        "failures": {
+            "ks_statistic": 0.7042,
+            "p_value": 0.0,
+            "drift_detected": true,
+            "baseline_mean": 0.37,
+            "production_mean": 1.6
+        },
+        "estimated_attendance_pct": {
+            "ks_statistic": 0.7479,
+            "p_value": 0.0,
+            "drift_detected": true,
+            "baseline_mean": 93.84,
+            "production_mean": 74.48
+        }
+    },
+    "drifted_features_count": 4,
+    "retraining_decision": {
+        "retrain_triggered": true,
+        "decision_status": "RETRAIN_RECOMMENDED",
+        "trigger_reasons": [
+            "Significant covariate drift detected in 4 key features (p < 0.05)",
+            "Class distribution shifted by 27.3% (Threshold: 15.0%)"
+        ]
+    }
+}
